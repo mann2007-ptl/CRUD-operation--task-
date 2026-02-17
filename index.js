@@ -69,6 +69,37 @@ app.put("/user/:id", (req, res) => {
 });
 
 
+app.patch("/users/:id", (req, res) => {
+  const userId = Number(req.params.id);
+  const user = users.find(u => u.uid === userId);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  if (req.body.att) user.naattme = req.body.att;
+  if (req.body.total_sub) user.total_sub = req.body.total_sub;
+  if (req.body.bonus) user.bonus = req.body.bonus;
+  if (req.body.name) user.name = req.body.name;
+
+  res.status(200).json({
+    message: "User updated",
+    user
+  });
+});
+
+app.delete("/users/:id", (req, res) => {
+  const userId = Number(req.params.id);
+  const index = users.findIndex(u => u.uid === userId);
+
+  if (index === -1) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  users.splice(index, 1);
+
+  res.status(204).end();
+});
 
 
 app.listen(3000, () => {
