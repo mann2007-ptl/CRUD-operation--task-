@@ -77,7 +77,7 @@ app.patch("/users/:id", (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  if (req.body.att) user.naattme = req.body.att;
+  if (req.body.att) user.att = req.body.att;
   if (req.body.total_sub) user.total_sub = req.body.total_sub;
   if (req.body.bonus) user.bonus = req.body.bonus;
   if (req.body.name) user.name = req.body.name;
